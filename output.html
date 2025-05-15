@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    background: rgb(255, 255, 255);
+}
+         hr{
+            margin-top: 0px;
+        }
+        .col-md-4{
+            background-color: rgb(124, 32, 32);
+            color:white;   
+        }
+        .box {
+            overflow-wrap:break-word;
+        }
+        img{
+            margin-right:10px;
+        }
+        #print{
+            margin-left: 45%;
+        }
+       
+        
+    </style>
+</head>
+<body>
+
+<!----------------------------------------------------------------------------------->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <img id="displayImage" src=""  class="rounded-circle" alt="Profile Image" style=" object-fit: cover; width: 150px; height: 150px;">
+            <h3 style="padding-right:400px; padding-top:10px;">Contact</h3>
+            <hr>
+            <div>
+                <img src="img/call-outline.svg" style="float:left"  width="25px" height="25px">
+                    <p id="phone"></p>
+                <img src="img/mail-outline.svg" style="float:left" width="25px" height="25px">
+                    <p id="email"></p>
+                <img src="img/logo-linkedin.svg" style="float:left" width="25px" height="25px">
+                    <p id="linked"></p>
+                <img src="img/logo-github.svg" style="float:left" width="25px" height="25px">
+                    <p id="github"></p>
+            </div>
+            <br>
+            <h3 style="padding-right:400px; padding-top:10px;" >Education</h3>
+            <hr>
+            <div id="details">
+                       
+                <div id="edu1-details" class="hidden">
+                    
+                   <p> <b id="edu1-display"></b></p>
+                    <p id="edu1-name-display" style="display: inline-block;"></p>
+                    <p id="edu1-state-display" style="float:right"></p>
+                    <p id="edu1-year-display"></p>
+                    <p id="edu1-cgpa-display"></p>
+                </div>
+                <div id="edu2-details" class="hidden">
+                    
+                   <p> <b id="edu2-display"></b></p>
+                    <p id="edu2-name-display" style="display: inline-block;"></p>
+                    <p id="edu2-state-display" style="float:right"></p>
+                    <p id="edu2-year-display"></p>
+                    <p id="edu2-cgpa-display"></p>
+                </div>
+                <div id="edu3-details" class="hidden">
+                    
+                   <p> <b id="edu3-display"></b></p>
+                    <p id="edu3-name-display" style="display: inline-block;"></p>
+                    <p id="edu3-state-display" style="float:right"></p>
+                    <p id="edu3-year-display"></p>
+                    <p id="edu3-cgpa-display"></p>
+                </div>
+            </div>
+
+
+
+            <!--<div>
+            <ul>
+                <b><p id="edu1"></p></b>
+                <p id="edu1-name" style="display: inline-block;" ></p>
+                <p id="edu1-state" style="float:right" ></p> 
+                <p id="edu1-year" ></p>
+                <p id="edu1-cgpa" style="display: inline-block;"></p>
+
+                <b><p id="edu2"></p></b>
+                <p id="edu2-name" style="display: inline-block;" ></p>
+                <p id="edu2-state" style="float:right" ></p> 
+                <p id="edu2-year" ></p>
+                <p id="edu2-cgpa" style="display: inline-block;"></p>
+
+                <b><p id="edu3"></p></b>
+                <p id="edu3-name" style="display: inline-block;" ></p>
+                <p id="edu3-state" style="float:right" ></p> 
+                <p id="edu3-year" ></p>
+                <p id="edu3-cgpa" style="display: inline-block;"></p>
+            </ul>
+            </div>-->
+
+            <div>
+            <h3 style="padding-right:400px; padding-top:10px;">Languages</h3>
+            <hr>    
+            <ul id="languagesList"></ul>  
+            </div>
+
+        </div>
+        <div class="col-md-8">
+        <p class="display-4" id="name"></p>
+        <p id="occupation"></p>
+        <hr>
+        <div class="box">
+                <p id="objective" ></p>
+        </div>
+        <hr>
+
+        <h3>Skills</h3>
+            <hr>
+        <ul id="skillsList"></ul>
+
+        <h3>InterPersonal Skills</h3>
+            <hr>
+        <ul id="interpersonalskillsList"></ul>
+
+
+        <h3>Projects</h3>
+            <hr>
+        <ul id="projectList"></ul>
+
+
+        <h3>Achivements</h3>
+            <hr>
+        <div class="box"> 
+        <ul id="achievementsList"></ul>
+    </div>
+</div>   
+
+<div id="print">
+<button id="printButton">Print Page</button>
+</div> 
+</div>
+
+
+
+
+
+
+
+<script>
+       
+    window.onload = function() {
+  // Handle skills
+  var skills = sessionStorage.getItem("skills");
+  if (skills) {
+      var skillsArray = skills.split("\n");
+      var skillsList = document.getElementById("skillsList");
+      skillsArray.forEach(function(skill) {
+          var listItem = document.createElement("li");
+          listItem.textContent = skill;
+          skillsList.appendChild(listItem);
+      });
+  } else {
+      document.getElementById("skillsList").innerHTML = "";
+  }
+
+
+  var interpersonalskills = sessionStorage.getItem("softskillinput");
+  if (interpersonalskills) {
+      var interpersonalskillsArray = interpersonalskills.split("\n");
+      var interpersonalskillsList = document.getElementById("interpersonalskillsList");
+      interpersonalskillsArray.forEach(function(interpersonalskill) {
+          var listItem = document.createElement("li");
+          listItem.textContent = interpersonalskill;
+          interpersonalskillsList.appendChild(listItem);
+      });
+  } else {
+      document.getElementById("interpersonalskillsList").innerHTML = "";
+  }
+
+
+  // Handle achievements
+  var achievementsString = sessionStorage.getItem("achievements");
+  if (achievementsString) {
+      var achievementsArray = achievementsString.split("\n");
+      var achievementsList = document.getElementById("achievementsList");
+      achievementsArray.forEach(function(achievement) {
+          var listItem = document.createElement("li");
+          listItem.textContent = achievement;
+          achievementsList.appendChild(listItem);
+      });
+  } else {
+      document.getElementById("achievementsList").innerHTML = "";
+  }
+
+  
+  var project = sessionStorage.getItem("project");
+  if (project) {
+      var projectArray = project.split("\n");
+      projectList = document.getElementById("projectList");
+      projectArray.forEach(function(project) {
+          var listItem = document.createElement("li");
+          listItem.textContent = project;
+          projectList.appendChild(listItem);
+      });
+  } else {
+      document.getElementById("projectList").innerHTML = "";
+  }
+
+
+
+  var languages = sessionStorage.getItem("languages");
+  if (languages) {
+      var languagesArray= languages.split("\n");
+      var languagesList = document.getElementById("languagesList");
+      languagesArray.forEach(function(languages) {
+          var listItem = document.createElement("li");
+          listItem.textContent = languages;
+          languagesList.appendChild(listItem);
+      });
+  } else {
+      document.getElementById("languagesList").innerHTML = "";
+  }
+
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const dbRequest = indexedDB.open('imageDB', 1);
+  dbRequest.onsuccess = function() {
+      const db = dbRequest.result;
+      const transaction = db.transaction('images', 'readonly');
+      const imagesStore = transaction.objectStore('images');
+      const getRequest = imagesStore.get('uploadedImage');
+      getRequest.onsuccess = function() {
+          if (getRequest.result) {
+              document.getElementById('displayImage').src = getRequest.result.data;
+          }
+      };
+  };
+  dbRequest.onerror = function() {
+      console.error('Error opening/accessing IndexedDB database');
+  };
+});
+
+
+    // Retrieve values from previous pages
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
+    const phone = localStorage.getItem('phone');
+    const linked = localStorage.getItem('linked');
+    const github = localStorage.getItem('github');
+    const occupation = localStorage.getItem('occupation');
+    const objective = sessionStorage.getItem('objective');
+
+
+
+      const edu1 = sessionStorage.getItem('edu1');
+      const edu1n = sessionStorage.getItem('edu1-name');
+      const edu1s = sessionStorage.getItem('edu1-state');
+      const edu1y = sessionStorage.getItem('edu1-year');
+      const edu1c = sessionStorage.getItem('edu1-cgpa');
+
+      const edu2 = sessionStorage.getItem('edu2');
+      const edu2n = sessionStorage.getItem('edu2-name');
+      const edu2s = sessionStorage.getItem('edu2-state');
+      const edu2y = sessionStorage.getItem('edu2-year');
+      const edu2c = sessionStorage.getItem('edu2-cgpa');
+
+      const edu3 = sessionStorage.getItem('edu3');
+      const edu3n = sessionStorage.getItem('edu3-name');
+      const edu3s = sessionStorage.getItem('edu3-state');
+      const edu3y = sessionStorage.getItem('edu3-year');
+      const edu3c = sessionStorage.getItem('edu3-cgpa');
+
+
+
+// Display values on the single page
+document.getElementById('name').textContent = name;
+document.getElementById('email').textContent = email;
+document.getElementById('phone').textContent = phone;
+document.getElementById('linked').textContent = linked;
+document.getElementById('github').textContent = github;
+document.getElementById('occupation').textContent = occupation;
+document.getElementById('objective').textContent = objective;
+
+
+
+if (edu1n) {
+document.getElementById('edu1-details').classList.remove('hidden');
+document.getElementById('edu1-display').textContent = "10th Details: ";
+document.getElementById('edu1-name-display').textContent = edu1n;
+document.getElementById('edu1-state-display').textContent = edu1s;
+document.getElementById('edu1-year-display').textContent = edu1y;
+document.getElementById('edu1-cgpa-display').textContent = edu1c;
+}
+
+if (edu2n) {
+document.getElementById('edu2-details').classList.remove('hidden');
+document.getElementById('edu2-display').textContent = "PUC/12th Details: ";
+document.getElementById('edu2-name-display').textContent = edu2n;
+document.getElementById('edu2-state-display').textContent = edu2s;
+document.getElementById('edu2-year-display').textContent = edu2y;
+document.getElementById('edu2-cgpa-display').textContent = edu2c;
+}
+
+if (edu3n) {
+document.getElementById('edu3-details').classList.remove('hidden');
+document.getElementById('edu3-display').textContent = "Graduation Details: " ;
+document.getElementById('edu3-name-display').textContent = edu3n;
+document.getElementById('edu3-state-display').textContent = edu3s;
+document.getElementById('edu3-year-display').textContent = edu3y;
+document.getElementById('edu3-cgpa-display').textContent = edu3c;
+}
+
+      document.getElementById('printButton').addEventListener('click', function() {
+      window.print();
+  });
+        //  localStorage.clear();
+  </script>
+</body>
+</html>
